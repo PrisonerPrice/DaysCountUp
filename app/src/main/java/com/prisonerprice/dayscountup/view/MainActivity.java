@@ -1,10 +1,11 @@
-package com.prisonerprice.dayscountup;
+package com.prisonerprice.dayscountup.view;
 
 import android.content.Intent;
 import android.os.Bundle;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
+import com.prisonerprice.dayscountup.R;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;

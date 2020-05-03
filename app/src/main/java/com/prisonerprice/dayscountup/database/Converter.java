@@ -36,7 +36,7 @@ public class Converter {
 
     @TypeConverter
     public static ArrayList<Date> toArray(String dateString) {
-        DateFormat format = new SimpleDateFormat("MMMM d, yyyy", Locale.ENGLISH);
+        DateFormat format = new SimpleDateFormat("MMMM d, yyyy", Locale.getDefault());
         String[] dateStrings = dateString.split("!");
         ArrayList<Date> result = new ArrayList<>();
         if (dateString == null || dateString.length() == 0) return result;

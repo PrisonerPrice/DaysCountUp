@@ -14,7 +14,7 @@ import java.util.List;
 public interface TaskDao {
 
     @Query("SELECT * FROM tasks ORDER BY updated_at")
-    LiveData<List<Task>> loadTaskList();
+    LiveData<List<Task>> getTaskList();
 
     @Insert
     void insertTask(Task task);
@@ -25,5 +25,6 @@ public interface TaskDao {
     @Delete
     void deleteTask(Task task);
 
-    // maybe I need select by id
+    @Query("SELECT * FROM tasks WHERE id = :id")
+    LiveData<Task> getTaskById(int id);
 }
