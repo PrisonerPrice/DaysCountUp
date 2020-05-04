@@ -20,4 +20,19 @@
     <string name="attachment_summary_on">Automatically download attachments for incoming emails
     </string>
     <string name="attachment_summary_off">Only download attachments when manually requested</string>
+
+    <!-- Edit -->
+    <string name="task_title">Task:</string>
+    <string name="task_input_default">Please input your task description</string>
+    <string name="date_title">Date:</string>
+    <string name="date_input_default">05312020</string>
+    <string name="celebrate_100_days_title">Celebrate 100 days</string>
+    <string name="celebrate_anniversary">Celebrate the anniversary</string>
+    <string name="celebrate_custom_days">Celebrate your days</string>
+    <string name="edit_activity_button_text">Submit</string>
+
+    <string name="hint_year">2020</string>
+    <string name="hint_month">05</string>
+    <string name="hint_day">31</string>
+
 </resources>

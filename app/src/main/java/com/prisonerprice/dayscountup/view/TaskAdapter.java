@@ -51,6 +51,11 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.TaskViewHolder
         return mTaskEntries;
     }
 
+    public void setTasks(List<Task> tasks) {
+        mTaskEntries = tasks;
+        notifyDataSetChanged();
+    }
+
     @Override
     public int getItemCount() {
         if(mTaskEntries == null) return 0;

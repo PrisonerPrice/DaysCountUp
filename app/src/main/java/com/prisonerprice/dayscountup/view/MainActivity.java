@@ -6,23 +6,37 @@ import android.os.Bundle;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
 import com.prisonerprice.dayscountup.R;
+import com.prisonerprice.dayscountup.viewmodel.MainViewModel;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements TaskAdapter.ItemClickListener{
+
+    private TaskAdapter taskAdapter;
+    private RecyclerView recyclerView;
+    private MainViewModel mainViewModel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
         Toolbar topAppBar = findViewById(R.id.topAppBar);
         setSupportActionBar(topAppBar);
+
+        recyclerView = findViewById(R.id.recycler_view);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+
+        taskAdapter = new TaskAdapter(this, this);
+        recyclerView.setAdapter(taskAdapter);
 
         FloatingActionButton fab = findViewById(R.id.fab);
         final Intent intent = new Intent(this, EditActivity.class);
@@ -33,6 +47,11 @@ public class MainActivity extends AppCompatActivity {
                         .setAction("Action", null).show();
                 startActivity(intent);
             }
+        });
+
+        mainViewModel = new MainViewModel(getApplication(), this);
+        mainViewModel.getTasks().observe(this, tasks -> {
+            taskAdapter.setTasks(tasks);
         });
     }
 
@@ -53,5 +72,12 @@ public class MainActivity extends AppCompatActivity {
             startActivity(intent);
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void onItemClickListener(int itemId) {
+        Intent intent = new Intent(MainActivity.this, EditActivity.class);
+        intent.putExtra(EditActivity.EXTRA_TASK_ID, itemId);
+        startActivity(intent);
     }
 }
