@@ -23,7 +23,7 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.TaskViewHolder
 
     private List<Task> mTaskEntries;
     private Context mContext;
-    private DateFormat format = new SimpleDateFormat("MMMM d, yyyy", Locale.getDefault());
+    private DateFormat format = new SimpleDateFormat("MM-dd-yyyy", Locale.getDefault());
     private ItemClickListener mItemClickListener;
 
     public TaskAdapter(Context context, ItemClickListener itemClickListener) {

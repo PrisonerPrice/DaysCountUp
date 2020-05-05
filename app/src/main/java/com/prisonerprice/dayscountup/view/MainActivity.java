@@ -14,11 +14,14 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 
 public class MainActivity extends AppCompatActivity implements TaskAdapter.ItemClickListener{
+
+    private final static String TAG = MainActivity.class.getSimpleName();
 
     private TaskAdapter taskAdapter;
     private RecyclerView recyclerView;
@@ -40,18 +43,12 @@ public class MainActivity extends AppCompatActivity implements TaskAdapter.ItemC
 
         FloatingActionButton fab = findViewById(R.id.fab);
         final Intent intent = new Intent(this, EditActivity.class);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-                startActivity(intent);
-            }
-        });
+        fab.setOnClickListener(view -> startActivity(intent));
 
         mainViewModel = new MainViewModel(getApplication(), this);
         mainViewModel.getTasks().observe(this, tasks -> {
             taskAdapter.setTasks(tasks);
+            Log.d(TAG, tasks.size() + "");
         });
     }
 

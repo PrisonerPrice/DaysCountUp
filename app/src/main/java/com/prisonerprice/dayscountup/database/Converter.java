@@ -25,22 +25,24 @@ public class Converter {
     public static String toString(ArrayList<Date> dates) {
         if(dates == null) return null;
         else {
+            DateFormat format = new SimpleDateFormat("MM-dd-yyyy", Locale.getDefault());
             StringBuilder sb = new StringBuilder();
-            for (int i = 0; i < dates.size() - 1; i++) {
-                sb.append(dates.get(i) + "!");
+
+            for(int i = 0; i < dates.size() - 1; i++) {
+                sb.append(format.format(dates.get(i)) + "!");
             }
-            sb.append(dates.get(dates.size() - 1));
+            sb.append(format.format(dates.get(dates.size() - 1)));
             return sb.toString();
         }
     }
 
     @TypeConverter
     public static ArrayList<Date> toArray(String dateString) {
-        DateFormat format = new SimpleDateFormat("MMMM d, yyyy", Locale.getDefault());
+        DateFormat format = new SimpleDateFormat("MM-dd-yyyy", Locale.getDefault());
         String[] dateStrings = dateString.split("!");
         ArrayList<Date> result = new ArrayList<>();
         if (dateString == null || dateString.length() == 0) return result;
-        try{
+        try {
             for(String ds : dateStrings) {
                 result.add(format.parse(ds));
             }
