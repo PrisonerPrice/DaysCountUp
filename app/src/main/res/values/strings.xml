@@ -31,10 +31,10 @@
     <string name="celebrate_custom_days">Celebrate your days</string>
     <string name="edit_activity_button_text">Submit</string>
     <string name="update_btn">UPDATE</string>
-    <string name="icon_pick_btn_text">Pick up an Icon</string>
+    <string name="icon_pick_text">Pick up an Icon</string>
 
-    <string name="hint_year">2020</string>
-    <string name="hint_month">05</string>
-    <string name="hint_day">31</string>
+    <string name="hint_year">YYYY</string>
+    <string name="hint_month">MM</string>
+    <string name="hint_day">DD</string>
 
 </resources>

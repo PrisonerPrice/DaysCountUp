@@ -5,12 +5,15 @@ import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.maltaisn.icondialog.pack.IconPack;
+import com.prisonerprice.dayscountup.App;
 import com.prisonerprice.dayscountup.R;
 import com.prisonerprice.dayscountup.database.Task;
 
@@ -25,10 +28,12 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.TaskViewHolder
     private Context mContext;
     private DateFormat format = new SimpleDateFormat("MM-dd-yyyy", Locale.getDefault());
     private ItemClickListener mItemClickListener;
+    private IconPack iconPack;
 
     public TaskAdapter(Context context, ItemClickListener itemClickListener) {
         mContext = context;
         mItemClickListener = itemClickListener;
+        iconPack = ((App) mContext.getApplicationContext()).getIconPack();
     }
 
     @Override
@@ -40,9 +45,12 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.TaskViewHolder
     @Override
     public void onBindViewHolder(TaskViewHolder holder, int position) {
         Task task = mTaskEntries.get(position);
+
+        int iconId = task.getIconID();
         String description = task.getDescription();
         String updatedAt = format.format(task.getUpdatedAt());
 
+        holder.iconImage.setImageDrawable(iconPack.getIcon(iconId).getDrawable());
         holder.taskDescriptionView.setText(description);
         holder.updatedAtView.setText(updatedAt);
     }
@@ -64,11 +72,13 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.TaskViewHolder
 
     class TaskViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
 
+        ImageView iconImage;
         TextView taskDescriptionView;
         TextView updatedAtView;
 
         public TaskViewHolder(@NonNull View itemView) {
             super(itemView);
+            iconImage = itemView.findViewById(R.id.card_icon);
             taskDescriptionView = itemView.findViewById(R.id.description_tv);
             updatedAtView = itemView.findViewById(R.id.updated_tv);
             itemView.setOnClickListener(this);

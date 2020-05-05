@@ -37,6 +37,7 @@ public class EditActivity extends AppCompatActivity implements IconDialog.Callba
     public final static String EXTRA_TASK_ID = "extrataskid";
     public final static String INSTANCE_TASK_ID = "instancetaskid";
     public final static Long A_DAY_IN_MILI = 24 * 3600 * 1000L;
+    public final static int ICON_DEFAULT_ID = 1036;
 
     private final static String TAG = EditActivity.class.getSimpleName();
     private final static int DEFAULT_TASK_ID = -1;
@@ -50,15 +51,14 @@ public class EditActivity extends AppCompatActivity implements IconDialog.Callba
     private SwitchMaterial anniversarySwitch;
     private EditText customDaysEditText;
     private Button submitBtn;
-    private Button iconPickBtn;
     private ImageView iconImage;
     private final EditViewModel editViewModel = new EditViewModel(this);
 
     private int mTaskId = DEFAULT_TASK_ID;
 
     private final static String ICON_DIALOG_TAG = "icon-dialog";
-    private final static int ICON_DEFAULT_ID = -1;
-    private int iconID;
+
+    private int iconID = ICON_DEFAULT_ID;
     private IconPack iconPack;
 
     @Override
@@ -77,8 +77,9 @@ public class EditActivity extends AppCompatActivity implements IconDialog.Callba
         anniversarySwitch = findViewById(R.id.switch_anniversary);
         customDaysEditText = findViewById(R.id.et_custom_days);
         submitBtn = findViewById(R.id.btn_edit_activity);
-        iconPickBtn = findViewById(R.id.btn_open_dialog);
         iconImage = findViewById(R.id.iv_icon);
+
+        iconImage.setImageDrawable(iconPack.getIcon(1036).getDrawable());
 
         // Read savedInstanceState
         if (savedInstanceState != null && savedInstanceState.containsKey(INSTANCE_TASK_ID)) {
@@ -98,6 +99,7 @@ public class EditActivity extends AppCompatActivity implements IconDialog.Callba
             }
         }
 
+
         submitBtn.setOnClickListener(v -> onSaveButtonClicked());
 
         // If dialog is already added to fragment manager, get it. If not, create a new instance.
@@ -105,7 +107,7 @@ public class EditActivity extends AppCompatActivity implements IconDialog.Callba
         IconDialog iconDialog = dialog != null ? dialog
                 : IconDialog.newInstance(new IconDialogSettings.Builder().build());
 
-        iconPickBtn.setOnClickListener(v -> {
+        iconImage.setOnClickListener(v -> {
             // Open icon dialog
             iconDialog.show(getSupportFragmentManager(), ICON_DIALOG_TAG);
         });
@@ -131,7 +133,7 @@ public class EditActivity extends AppCompatActivity implements IconDialog.Callba
 
         ArrayList<Date> dates = task.getRemainderDates();
         for(Date d : dates) {
-            if (d.getTime() - date.getTime() == A_DAY_IN_MILI)
+            if (d.getTime() - date.getTime() == A_DAY_IN_MILI * 100)
                 hundredSwitch.setChecked(true);
             else if (format.format(d).substring(0, 5).equals(format.format(date).substring(0, 5)))
                 anniversarySwitch.setChecked(true);
@@ -151,22 +153,36 @@ public class EditActivity extends AppCompatActivity implements IconDialog.Callba
         boolean dateFormatIsCorrect = true;
         String desc = taskDescEditText.getText().toString();
 
-        String dateString = monthEditText.getText().toString() + "-" + dayEditText.getText().toString() + "-" + yearEditText.getText().toString();
+        String dateString = "";
+
+        try {
+            int month = Integer.parseInt(monthEditText.getText().toString());
+            int day = Integer.parseInt(dayEditText.getText().toString());
+            int year = Integer.parseInt(yearEditText.getText().toString());
+
+            dateString = month + "-" + day + "-" + year;
+
+            if (month < 0 || month > 12) dateFormatIsCorrect = false;
+            if (day < 0 || day > 31) dateFormatIsCorrect = false;
+
+        } catch (Exception e) {
+            dateFormatIsCorrect = false;
+            e.printStackTrace();
+        }
+
         Date date;
         try {
             date = format.parse(dateString);
         } catch (ParseException e) {
             date = null;
             dateFormatIsCorrect = false;
-            Snackbar.make(submitBtn, "Wrong Date format, please enter correct date", Snackbar.LENGTH_LONG)
-                    .setAction("Action", null).show();
             e.printStackTrace();
         }
 
         if (dateFormatIsCorrect) {
             ArrayList<Date> dates = new ArrayList<>();
             if (hundredSwitch.isChecked())
-                dates.add(new Date(date.getTime() + 100 * A_DAY_IN_MILI));
+                dates.add(new Date(date.getTime() + 101 * A_DAY_IN_MILI));
             if (anniversarySwitch.isChecked()) {
                 String oldYear = format.format(date).substring(6, 10);
                 String newYear = (Integer.parseInt(oldYear) + 1) + "";
@@ -176,9 +192,20 @@ public class EditActivity extends AppCompatActivity implements IconDialog.Callba
                     e.printStackTrace();
                 }
             }
+            if (customDaysEditText.getText() != null) {
+                String day = customDaysEditText.getText().toString();
+                try {
+                    dates.add(new Date(date.getTime() + Integer.parseInt(day) * A_DAY_IN_MILI));
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
 
             final Task task = new Task(desc, date, dates, iconID);
             editViewModel.insertOrUpdateTask(this, task, mTaskId);
+        } else {
+            Snackbar.make(submitBtn, "Wrong Date format, please enter a valid date", Snackbar.LENGTH_SHORT)
+                    .setAction("Action", null).show();
         }
 
     }
@@ -200,7 +227,7 @@ public class EditActivity extends AppCompatActivity implements IconDialog.Callba
             sb.append(", ");
         }
         sb.delete(sb.length() - 2, sb.length());
-        Snackbar.make(iconPickBtn, "Icon selected: " + sb, Snackbar.LENGTH_LONG)
+        Snackbar.make(iconImage, "Icon selected: " + sb, Snackbar.LENGTH_LONG)
                 .setAction("Action", null).show();
     }
 

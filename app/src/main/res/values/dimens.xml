@@ -5,7 +5,7 @@
     <dimen name="activity_vertical_margin">16dp</dimen>
 
     <!-- RecyclerView -->
-    <dimen name="rv_margin_top">60dp</dimen>
+    <dimen name="rv_margin_top">64dp</dimen>
 
     <!-- CardView -->
     <dimen name="margin_hori">8dp</dimen>
