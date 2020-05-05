@@ -41,17 +41,19 @@ dependencies {
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'androidx.test.ext:junit:1.1.1'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
-
-    // Add RecyclerView dependency
     implementation "androidx.recyclerview:recyclerview:1.1.0"
 
-    // Add Room dependency
+    // Room dependency
     def room_version = "2.2.3"
     implementation "androidx.room:room-runtime:$room_version"
     annotationProcessor "androidx.room:room-compiler:$room_version"
 
-    // Add LifeCycle dependency
+    // LifeCycle dependency
     def lifecycle_version = "2.1.0"
     implementation "androidx.lifecycle:lifecycle-extensions:$lifecycle_version"
     annotationProcessor "androidx.lifecycle:lifecycle-compiler:$lifecycle_version"
+
+    // IconDialog dependency
+    implementation "com.maltaisn:icondialog:3.2.2"
+    implementation "com.maltaisn:iconpack-default:1.0.1"
 }

@@ -19,21 +19,26 @@ public class Task {
     @ColumnInfo(name = "updated_at")
     private Date updatedAt;
 
-    @ColumnInfo(name = "remainderDates")
+    @ColumnInfo(name = "remainder_dates")
     private ArrayList<Date> remainderDates;
 
+    @ColumnInfo(name = "icon_id")
+    private int iconID;
+
     @Ignore
-    public Task(String description, Date updatedAt, ArrayList<Date> remainderDates) {
+    public Task(String description, Date updatedAt, ArrayList<Date> remainderDates, int iconID) {
         this.description = description;
         this.updatedAt = updatedAt;
         this.remainderDates = remainderDates;
+        this.iconID = iconID;
     }
 
-    public Task(int id, String description, Date updatedAt, ArrayList<Date> remainderDates) {
+    public Task(int id, String description, Date updatedAt, ArrayList<Date> remainderDates, int iconID) {
         this.id = id;
         this.description = description;
         this.updatedAt = updatedAt;
         this.remainderDates = remainderDates;
+        this.iconID = iconID;
     }
 
     public int getId() {
@@ -66,5 +71,13 @@ public class Task {
 
     public void setRemainderDates(ArrayList<Date> remainderDates) {
         this.remainderDates = remainderDates;
+    }
+
+    public int getIconID() {
+        return iconID;
+    }
+
+    public void setIconID(int iconID) {
+        this.iconID = iconID;
     }
 }

@@ -1,15 +1,25 @@
 package com.prisonerprice.dayscountup.view;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.Switch;
+import android.widget.Toast;
 
 import com.google.android.material.snackbar.Snackbar;
+import com.google.android.material.switchmaterial.SwitchMaterial;
+import com.maltaisn.icondialog.IconDialog;
+import com.maltaisn.icondialog.IconDialogSettings;
+import com.maltaisn.icondialog.data.Icon;
+import com.maltaisn.icondialog.pack.IconDrawableLoader;
+import com.maltaisn.icondialog.pack.IconPack;
+import com.prisonerprice.dayscountup.App;
 import com.prisonerprice.dayscountup.R;
 import com.prisonerprice.dayscountup.database.Task;
 import com.prisonerprice.dayscountup.viewmodel.EditViewModel;
@@ -19,9 +29,10 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import java.util.Locale;
 
-public class EditActivity extends AppCompatActivity {
+public class EditActivity extends AppCompatActivity implements IconDialog.Callback{
 
     public final static String EXTRA_TASK_ID = "extrataskid";
     public final static String INSTANCE_TASK_ID = "instancetaskid";
@@ -35,20 +46,27 @@ public class EditActivity extends AppCompatActivity {
     private EditText monthEditText;
     private EditText dayEditText;
     private EditText yearEditText;
-    private Switch hundredSwitch;
-    private Switch anniversarySwitch;
+    private SwitchMaterial hundredSwitch;
+    private SwitchMaterial anniversarySwitch;
     private EditText customDaysEditText;
     private Button submitBtn;
+    private Button iconPickBtn;
+    private ImageView iconImage;
     private final EditViewModel editViewModel = new EditViewModel(this);
 
     private int mTaskId = DEFAULT_TASK_ID;
 
-
+    private final static String ICON_DIALOG_TAG = "icon-dialog";
+    private final static int ICON_DEFAULT_ID = -1;
+    private int iconID;
+    private IconPack iconPack;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit);
+
+        iconPack = ((App) getApplication()).getIconPack();
 
         // initViews
         taskDescEditText = findViewById(R.id.et_task_desc);
@@ -59,7 +77,8 @@ public class EditActivity extends AppCompatActivity {
         anniversarySwitch = findViewById(R.id.switch_anniversary);
         customDaysEditText = findViewById(R.id.et_custom_days);
         submitBtn = findViewById(R.id.btn_edit_activity);
-        submitBtn.setOnClickListener(v -> onSaveButtonClicked());
+        iconPickBtn = findViewById(R.id.btn_open_dialog);
+        iconImage = findViewById(R.id.iv_icon);
 
         // Read savedInstanceState
         if (savedInstanceState != null && savedInstanceState.containsKey(INSTANCE_TASK_ID)) {
@@ -78,6 +97,19 @@ public class EditActivity extends AppCompatActivity {
                 });
             }
         }
+
+        submitBtn.setOnClickListener(v -> onSaveButtonClicked());
+
+        // If dialog is already added to fragment manager, get it. If not, create a new instance.
+        IconDialog dialog = (IconDialog) getSupportFragmentManager().findFragmentByTag(ICON_DIALOG_TAG);
+        IconDialog iconDialog = dialog != null ? dialog
+                : IconDialog.newInstance(new IconDialogSettings.Builder().build());
+
+        iconPickBtn.setOnClickListener(v -> {
+            // Open icon dialog
+            iconDialog.show(getSupportFragmentManager(), ICON_DIALOG_TAG);
+        });
+
     }
 
     @Override
@@ -106,6 +138,13 @@ public class EditActivity extends AppCompatActivity {
             else
                 customDaysEditText.setText((d.getTime() - date.getTime()) / A_DAY_IN_MILI + "");
         }
+
+        iconID = task.getIconID();
+        if (iconID != ICON_DEFAULT_ID) {
+            Icon icon = iconPack.getIcon(iconID);
+            iconImage.setImageDrawable(icon.getDrawable());
+        }
+
     }
 
     public void onSaveButtonClicked() {
@@ -138,9 +177,33 @@ public class EditActivity extends AppCompatActivity {
                 }
             }
 
-            final Task task = new Task(desc, date, dates);
+            final Task task = new Task(desc, date, dates, iconID);
             editViewModel.insertOrUpdateTask(this, task, mTaskId);
         }
 
     }
+
+    @Nullable
+    @Override
+    public IconPack getIconDialogIconPack() {
+        return iconPack;
+    }
+
+    @Override
+    public void onIconDialogIconsSelected(@NonNull IconDialog dialog, @NonNull List<Icon> icons) {
+        // Show a toast with the list of selected icon IDs.
+        StringBuilder sb = new StringBuilder();
+        for (Icon icon : icons) {
+            iconImage.setImageDrawable(icon.getDrawable());
+            iconID = icon.getId();
+            sb.append(iconID);
+            sb.append(", ");
+        }
+        sb.delete(sb.length() - 2, sb.length());
+        Snackbar.make(iconPickBtn, "Icon selected: " + sb, Snackbar.LENGTH_LONG)
+                .setAction("Action", null).show();
+    }
+
+    @Override
+    public void onIconDialogCancelled() {}
 }

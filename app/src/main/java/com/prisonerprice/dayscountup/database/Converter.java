@@ -23,7 +23,7 @@ public class Converter {
 
     @TypeConverter
     public static String toString(ArrayList<Date> dates) {
-        if(dates == null) return null;
+        if(dates == null || dates.size() == 0) return null;
         else {
             DateFormat format = new SimpleDateFormat("MM-dd-yyyy", Locale.getDefault());
             StringBuilder sb = new StringBuilder();
@@ -39,9 +39,10 @@ public class Converter {
     @TypeConverter
     public static ArrayList<Date> toArray(String dateString) {
         DateFormat format = new SimpleDateFormat("MM-dd-yyyy", Locale.getDefault());
-        String[] dateStrings = dateString.split("!");
         ArrayList<Date> result = new ArrayList<>();
         if (dateString == null || dateString.length() == 0) return result;
+
+        String[] dateStrings = dateString.split("!");
         try {
             for(String ds : dateStrings) {
                 result.add(format.parse(ds));
