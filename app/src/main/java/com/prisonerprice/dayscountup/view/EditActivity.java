@@ -182,7 +182,7 @@ public class EditActivity extends AppCompatActivity implements IconDialog.Callba
         if (dateFormatIsCorrect) {
             ArrayList<Date> dates = new ArrayList<>();
             if (hundredSwitch.isChecked())
-                dates.add(new Date(date.getTime() + 101 * A_DAY_IN_MILI));
+                dates.add(new Date(date.getTime() + 100 * A_DAY_IN_MILI));
             if (anniversarySwitch.isChecked()) {
                 String oldYear = format.format(date).substring(6, 10);
                 String newYear = (Integer.parseInt(oldYear) + 1) + "";

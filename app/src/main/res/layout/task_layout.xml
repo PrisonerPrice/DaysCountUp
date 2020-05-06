@@ -25,6 +25,8 @@
             android:id="@+id/description_tv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:maxEms="18"
+            android:maxLines="2"
             app:layout_constraintStart_toStartOf="@+id/guideline6"
             app:layout_constraintTop_toTopOf="@+id/card_icon"></TextView>
 

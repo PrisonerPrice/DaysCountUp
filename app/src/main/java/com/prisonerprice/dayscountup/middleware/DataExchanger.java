@@ -65,4 +65,10 @@ public class DataExchanger {
             activity.finish();
         });
     }
+
+    public void truncateDatabase() {
+        appExecutors.getDiskIO().execute(() -> {
+            appDatabase.taskDao().truncate();
+        });
+    }
 }

@@ -6,25 +6,29 @@
     <string name="sync">sync</string>
     <string name="settings">settings</string>
 
-    <!-- Preference Titles -->
+    <!-- Settings -->
     <string name="messages_header">Messages</string>
     <string name="sync_header">Sync</string>
+    <string name="test_header">test</string>
 
-    <!-- Messages Preferences -->
     <string name="signature_title">Your signature</string>
     <string name="reply_title">Default reply action</string>
 
-    <!-- Sync Preferences -->
     <string name="sync_title">Sync email periodically</string>
     <string name="attachment_title">Download incoming attachments</string>
     <string name="attachment_summary_on">Automatically download attachments for incoming emails
     </string>
     <string name="attachment_summary_off">Only download attachments when manually requested</string>
 
+    <string name="truncate_alert_title">Do you want to truncate your database?</string>
+    <string name="truncate_alert_message">All data will lost</string>
+    <string name="truncate_alert_cancel">Cancel</string>
+    <string name="truncate_alert_accept">Accept</string>
+
     <!-- Edit -->
-    <string name="task_title">Task:</string>
+    <string name="task_title">Event Description</string>
     <string name="task_input_default">Please input your task description</string>
-    <string name="date_title">Date:</string>
+    <string name="date_title">Date</string>
     <string name="date_input_default">05312020</string>
     <string name="celebrate_100_days_title">Celebrate 100 days</string>
     <string name="celebrate_anniversary">Celebrate the anniversary</string>

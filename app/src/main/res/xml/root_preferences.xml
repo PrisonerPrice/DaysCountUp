@@ -32,4 +32,13 @@
 
     </PreferenceCategory>
 
+    <PreferenceCategory app:title="@string/test_header">
+
+        <Preference
+            app:key="clear_all"
+            app:title="clear all data"
+            app:summary="clear all data stored in the database"/>
+
+    </PreferenceCategory>
+
 </PreferenceScreen>

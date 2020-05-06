@@ -11,190 +11,191 @@
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="9"
+        android:layout_weight="12"
         android:layout_marginHorizontal="8dp"
         android:layout_marginTop="8dp"
         android:layout_marginBottom="24dp">
 
-        <androidx.core.widget.NestedScrollView
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent">
+            <TextView
+                android:id="@+id/tv_task_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:text="@string/task_title"
+                android:textSize="@dimen/title_text_size"
+                android:textColor="@color/colorSecondary"
+                app:layout_constraintStart_toStartOf="@+id/guideline"
+                app:layout_constraintTop_toTopOf="@+id/guideline2" />
 
-                <TextView
-                    android:id="@+id/tv_task_title"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="16dp"
-                    android:text="@string/task_title"
-                    android:textSize="@dimen/title_text_size"
-                    app:layout_constraintStart_toStartOf="@+id/guideline"
-                    app:layout_constraintTop_toTopOf="@+id/guideline2" />
+            <TextView
+                android:id="@+id/tv_anniversary"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="24dp"
+                android:text="@string/celebrate_anniversary"
+                android:textSize="@dimen/lots_of_words"
+                app:layout_constraintStart_toStartOf="@+id/guideline"
+                app:layout_constraintTop_toBottomOf="@+id/tv_celebrate_100" />
 
-                <TextView
-                    android:id="@+id/tv_anniversary"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="24dp"
-                    android:text="@string/celebrate_anniversary"
-                    android:textSize="@dimen/lots_of_words"
-                    app:layout_constraintStart_toStartOf="@+id/guideline"
-                    app:layout_constraintTop_toBottomOf="@+id/tv_celebrate_100" />
+            <TextView
+                android:id="@+id/tv_custom"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="24dp"
+                android:text="@string/celebrate_custom_days"
+                android:textSize="@dimen/lots_of_words"
+                app:layout_constraintStart_toStartOf="@+id/guideline"
+                app:layout_constraintTop_toBottomOf="@+id/tv_anniversary" />
 
-                <TextView
-                    android:id="@+id/tv_custom"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="24dp"
-                    android:text="@string/celebrate_custom_days"
-                    android:textSize="@dimen/lots_of_words"
-                    app:layout_constraintStart_toStartOf="@+id/guideline"
-                    app:layout_constraintTop_toBottomOf="@+id/tv_anniversary" />
+            <TextView
+                android:id="@+id/tv_celebrate_100"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="48dp"
+                android:text="@string/celebrate_100_days_title"
+                android:textSize="@dimen/lots_of_words"
+                app:layout_constraintStart_toStartOf="@+id/guideline"
+                app:layout_constraintTop_toBottomOf="@+id/et_month" />
 
-                <TextView
-                    android:id="@+id/tv_celebrate_100"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="48dp"
-                    android:text="@string/celebrate_100_days_title"
-                    android:textSize="@dimen/lots_of_words"
-                    app:layout_constraintStart_toStartOf="@+id/guideline"
-                    app:layout_constraintTop_toBottomOf="@+id/et_month" />
+            <EditText
+                android:id="@+id/et_task_desc"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:gravity="start|top"
+                android:inputType="textMultiLine"
+                android:maxLines="2"
+                app:layout_constraintStart_toStartOf="@+id/guideline"
+                app:layout_constraintTop_toBottomOf="@+id/tv_task_title" />
 
-                <EditText
-                    android:id="@+id/et_task_desc"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:ems="10"
-                    android:gravity="start|top"
-                    android:inputType="textMultiLine"
-                    app:layout_constraintStart_toStartOf="@+id/guideline"
-                    app:layout_constraintTop_toBottomOf="@+id/tv_task_title" />
+            <EditText
+                android:id="@+id/et_month"
+                android:layout_width="@dimen/width_month_or_day"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:hint="@string/hint_month"
+                android:inputType="date"
+                android:maxLines="1"
+                app:layout_constraintStart_toStartOf="@+id/guideline"
+                app:layout_constraintTop_toBottomOf="@+id/date_title" />
 
-                <EditText
-                    android:id="@+id/et_month"
-                    android:layout_width="@dimen/width_month_or_day"
-                    android:layout_height="wrap_content"
-                    android:ems="10"
-                    android:hint="@string/hint_month"
-                    android:inputType="date"
-                    app:layout_constraintStart_toStartOf="@+id/guideline"
-                    app:layout_constraintTop_toBottomOf="@+id/date_title" />
+            <TextView
+                android:id="@+id/date_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="24dp"
+                android:text="@string/date_title"
+                android:textSize="@dimen/title_text_size"
+                android:textColor="@color/colorSecondary"
+                app:layout_constraintStart_toStartOf="@+id/guideline"
+                app:layout_constraintTop_toBottomOf="@+id/et_task_desc" />
 
-                <TextView
-                    android:id="@+id/date_title"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="24dp"
-                    android:text="@string/date_title"
-                    android:textSize="@dimen/title_text_size"
-                    app:layout_constraintStart_toStartOf="@+id/guideline"
-                    app:layout_constraintTop_toBottomOf="@+id/et_task_desc" />
+            <com.google.android.material.switchmaterial.SwitchMaterial
+                android:id="@+id/switch_100"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintBottom_toBottomOf="@+id/tv_celebrate_100"
+                app:layout_constraintEnd_toStartOf="@+id/guideline4"
+                app:layout_constraintTop_toTopOf="@+id/tv_celebrate_100" />
 
-                <com.google.android.material.switchmaterial.SwitchMaterial
-                    android:id="@+id/switch_100"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    app:layout_constraintBottom_toBottomOf="@+id/tv_celebrate_100"
-                    app:layout_constraintEnd_toStartOf="@+id/guideline4"
-                    app:layout_constraintTop_toTopOf="@+id/tv_celebrate_100" />
+            <com.google.android.material.switchmaterial.SwitchMaterial
+                android:id="@+id/switch_anniversary"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintBottom_toBottomOf="@+id/tv_anniversary"
+                app:layout_constraintEnd_toStartOf="@+id/guideline4"
+                app:layout_constraintTop_toTopOf="@+id/tv_anniversary" />
 
-                <com.google.android.material.switchmaterial.SwitchMaterial
-                    android:id="@+id/switch_anniversary"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    app:layout_constraintBottom_toBottomOf="@+id/tv_anniversary"
-                    app:layout_constraintEnd_toStartOf="@+id/guideline4"
-                    app:layout_constraintTop_toTopOf="@+id/tv_anniversary" />
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/guideline"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintGuide_begin="16dp" />
 
-                <androidx.constraintlayout.widget.Guideline
-                    android:id="@+id/guideline"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    app:layout_constraintGuide_begin="16dp" />
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/guideline2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                app:layout_constraintGuide_end="534dp" />
 
-                <androidx.constraintlayout.widget.Guideline
-                    android:id="@+id/guideline2"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    app:layout_constraintGuide_end="480dp" />
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/guideline3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                app:layout_constraintGuide_end="24dp" />
 
-                <androidx.constraintlayout.widget.Guideline
-                    android:id="@+id/guideline3"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    app:layout_constraintGuide_end="24dp" />
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/guideline4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintGuide_end="16dp" />
 
-                <androidx.constraintlayout.widget.Guideline
-                    android:id="@+id/guideline4"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    app:layout_constraintGuide_end="16dp" />
+            <EditText
+                android:id="@+id/et_custom_days"
+                android:layout_width="@dimen/width_year"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:inputType="date"
+                android:maxLines="1"
+                app:layout_constraintBottom_toBottomOf="@+id/tv_custom"
+                app:layout_constraintEnd_toStartOf="@+id/guideline4"
+                app:layout_constraintTop_toTopOf="@+id/tv_custom" />
 
-                <EditText
-                    android:id="@+id/et_custom_days"
-                    android:layout_width="@dimen/width_year"
-                    android:layout_height="wrap_content"
-                    android:ems="10"
-                    android:inputType="date"
-                    app:layout_constraintBottom_toBottomOf="@+id/tv_custom"
-                    app:layout_constraintEnd_toStartOf="@+id/guideline4"
-                    app:layout_constraintTop_toTopOf="@+id/tv_custom" />
+            <EditText
+                android:id="@+id/et_day"
+                android:layout_width="@dimen/width_month_or_day"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:ems="10"
+                android:hint="@string/hint_day"
+                android:inputType="date"
+                android:maxLines="1"
+                app:layout_constraintBottom_toBottomOf="@+id/et_month"
+                app:layout_constraintStart_toEndOf="@+id/et_month"
+                app:layout_constraintTop_toBottomOf="@+id/date_title" />
 
-                <EditText
-                    android:id="@+id/et_day"
-                    android:layout_width="@dimen/width_month_or_day"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="16dp"
-                    android:ems="10"
-                    android:hint="@string/hint_day"
-                    android:inputType="date"
-                    app:layout_constraintBottom_toBottomOf="@+id/et_month"
-                    app:layout_constraintStart_toEndOf="@+id/et_month"
-                    app:layout_constraintTop_toBottomOf="@+id/date_title" />
+            <EditText
+                android:id="@+id/et_year"
+                android:layout_width="@dimen/width_year"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:ems="10"
+                android:hint="@string/hint_year"
+                android:inputType="date"
+                android:maxLines="1"
+                app:layout_constraintBottom_toBottomOf="@+id/et_day"
+                app:layout_constraintStart_toEndOf="@+id/et_day"
+                app:layout_constraintTop_toTopOf="@+id/et_day" />
 
-                <EditText
-                    android:id="@+id/et_year"
-                    android:layout_width="@dimen/width_year"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="16dp"
-                    android:ems="10"
-                    android:hint="@string/hint_year"
-                    android:inputType="date"
-                    app:layout_constraintBottom_toBottomOf="@+id/et_day"
-                    app:layout_constraintStart_toEndOf="@+id/et_day"
-                    app:layout_constraintTop_toTopOf="@+id/et_day" />
+            <ImageView
+                android:id="@+id/iv_icon"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:tint="@color/colorPrimary"
+                app:layout_constraintBottom_toBottomOf="@+id/tv_pick_icon"
+                app:layout_constraintEnd_toStartOf="@+id/guideline4"
+                app:layout_constraintTop_toTopOf="@+id/tv_pick_icon"
+                app:srcCompat="@android:drawable/ic_menu_search" />
 
-                <ImageView
-                    android:id="@+id/iv_icon"
-                    android:layout_width="60dp"
-                    android:layout_height="60dp"
-                    android:tint="@color/colorPrimary"
-                    app:layout_constraintBottom_toBottomOf="@+id/tv_pick_icon"
-                    app:layout_constraintEnd_toStartOf="@+id/guideline4"
-                    app:layout_constraintTop_toTopOf="@+id/tv_pick_icon"
-                    app:srcCompat="@android:drawable/ic_menu_search" />
+            <TextView
+                android:id="@+id/tv_pick_icon"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="60dp"
+                android:text="@string/icon_pick_text"
+                android:textSize="@dimen/lots_of_words"
+                app:layout_constraintStart_toStartOf="@+id/guideline"
+                app:layout_constraintTop_toBottomOf="@+id/tv_custom" />
 
-                <TextView
-                    android:id="@+id/tv_pick_icon"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="60dp"
-                    android:text="@string/icon_pick_text"
-                    android:textSize="@dimen/lots_of_words"
-                    app:layout_constraintStart_toStartOf="@+id/guideline"
-                    app:layout_constraintTop_toBottomOf="@+id/tv_custom" />
-
-            </androidx.constraintlayout.widget.ConstraintLayout>
-
-        </androidx.core.widget.NestedScrollView>
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
     </androidx.cardview.widget.CardView>
 
