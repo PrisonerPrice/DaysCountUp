@@ -56,4 +56,7 @@ dependencies {
     // IconDialog dependency
     implementation "com.maltaisn:icondialog:3.2.2"
     implementation "com.maltaisn:iconpack-default:1.0.1"
+
+    // Worker dependency
+    implementation "androidx.work:work-runtime:2.3.4"
 }
