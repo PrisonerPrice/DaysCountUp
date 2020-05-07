@@ -164,6 +164,7 @@ public class EditActivity extends AppCompatActivity implements IconDialog.Callba
 
             if (month < 0 || month > 12) dateFormatIsCorrect = false;
             if (day < 0 || day > 31) dateFormatIsCorrect = false;
+            if (year < 0) dateFormatIsCorrect = false;
 
         } catch (Exception e) {
             dateFormatIsCorrect = false;
