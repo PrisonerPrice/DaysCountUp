@@ -13,36 +13,49 @@ import androidx.core.app.NotificationManagerCompat;
 import androidx.work.Worker;
 import androidx.work.WorkerParameters;
 
+import com.maltaisn.icondialog.pack.IconPack;
+import com.prisonerprice.dayscountup.App;
+import com.prisonerprice.dayscountup.R;
 import com.prisonerprice.dayscountup.view.MainActivity;
 
 public class NotificationWorker extends Worker {
 
     private final static String CHANNEL_ID = "CHANNEL_ID";
+    private final static int notificationID = 1105;
     private Context context;
-    private int notificationID;
+    private IconPack iconPack;
+
     private String notificationTitle;
     private String notificationText;
     private int drawableID;
 
-    public NotificationWorker(@NonNull Context context, @NonNull WorkerParameters workerParams, int notificationID, String notificationTitle, String notificationText, int drawableID) {
+    public NotificationWorker(@NonNull Context context, @NonNull WorkerParameters workerParams) {
         super(context, workerParams);
         this.context = context;
-        this.notificationID = notificationID;
-        this.notificationTitle = notificationTitle;
-        this.notificationText = notificationText;
-        this.drawableID = drawableID;
+        this.notificationTitle = workerParams.getInputData().getString("NOTIFICATION_TITLE");
+        this.notificationText = workerParams.getInputData().getString("NOTIFICATION_TEXT");
+        this.drawableID = workerParams.getInputData().getInt("NOTIFICATION_DRAWABLE", -1);
+        iconPack = ((App) getApplicationContext()).getIconPack();
     }
 
     @Override
     public Result doWork() {
-        createNotificationChannel(context);
+        //createNotificationChannel(context);
 
         Intent tapIntent = new Intent(context, MainActivity.class);
         tapIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
         PendingIntent tapPendingIntent = PendingIntent.getActivity(context, 0, tapIntent, 0);
 
+//        NotificationCompat.Builder builder = new NotificationCompat.Builder(context, CHANNEL_ID)
+//                .setSmallIcon(drawableID)
+//                .setContentTitle(notificationTitle)
+//                .setContentText(notificationText)
+//                .setPriority(NotificationCompat.PRIORITY_DEFAULT)
+//                .setContentIntent(tapPendingIntent)
+//                .setAutoCancel(true);
+
         NotificationCompat.Builder builder = new NotificationCompat.Builder(context, CHANNEL_ID)
-                .setSmallIcon(drawableID)
+                .setSmallIcon(R.drawable.ic_event)
                 .setContentTitle(notificationTitle)
                 .setContentText(notificationText)
                 .setPriority(NotificationCompat.PRIORITY_DEFAULT)
@@ -53,21 +66,5 @@ public class NotificationWorker extends Worker {
         notificationManagerCompat.notify(notificationID, builder.build());
 
         return Result.success();
-    }
-
-    private void createNotificationChannel(Context context) {
-        // Create the NotificationChannel, but only on API 26+ because
-        // the NotificationChannel class is new and not in the support library
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            CharSequence name = "channel_name_2";
-            String description = "channel_description";
-            int importance = NotificationManager.IMPORTANCE_DEFAULT;
-            NotificationChannel channel = new NotificationChannel(CHANNEL_ID, name, importance);
-            channel.setDescription(description);
-            // Register the channel with the system; you can't change the importance
-            // or other notification behaviors after this
-            NotificationManager notificationManager = context.getSystemService(NotificationManager.class);
-            notificationManager.createNotificationChannel(channel);
-        }
     }
 }

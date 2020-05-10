@@ -2,6 +2,7 @@ package com.prisonerprice.dayscountup.middleware;
 
 import android.app.Activity;
 import android.content.Context;
+import android.util.Log;
 
 import androidx.lifecycle.LiveData;
 import androidx.recyclerview.widget.RecyclerView;
@@ -15,6 +16,7 @@ import java.util.List;
 
 public class DataExchanger {
 
+    private static final String LOG_TAG = DataExchanger.class.getSimpleName();
     private static final Object LOCK = new Object();
     private final AppDatabase appDatabase;
     private final AppExecutors appExecutors = AppExecutors.getInstance();
@@ -57,9 +59,11 @@ public class DataExchanger {
     public void insertOrUpdateTask(Activity activity, Task task, int mTaskId) {
         appExecutors.getDiskIO().execute(() -> {
             if(mTaskId == DEFAULT_TASK_ID) {
+                Log.d(LOG_TAG, "INSERT NEW TASK");
                 appDatabase.taskDao().insertTask(task);
             } else {
-                task.setId(mTaskId);
+                //task.setId(mTaskId);
+                Log.d(LOG_TAG, "UPDATE TASK");
                 appDatabase.taskDao().updateTask(task);
             }
             activity.finish();

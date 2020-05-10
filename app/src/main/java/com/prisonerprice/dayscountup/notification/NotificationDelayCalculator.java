@@ -2,7 +2,7 @@ package com.prisonerprice.dayscountup.notification;
 
 import android.content.Intent;
 
-import com.prisonerprice.dayscountup.utils.LeapYearCalculator;
+import com.prisonerprice.dayscountup.utils.Utils;
 
 import java.text.DateFormat;
 import java.text.ParseException;
@@ -38,7 +38,7 @@ public class NotificationDelayCalculator {
 
         if(month == 2 && day == 29) {
             for(int i = 1; i <= 10; i++) {
-                if (LeapYearCalculator.isLeapYear(year + i)) {
+                if (Utils.isLeapYear(year + i)) {
                     String s = "02-28-" + (year + i);
                     notificationDateStrings.add(s);
                 } else {
@@ -49,10 +49,8 @@ public class NotificationDelayCalculator {
         } else {
             String prefix = "" + month + "-" + day + "-";
             for(int i = 1; i <= 10; i++) {
-                if (LeapYearCalculator.isLeapYear(year + i)) {
-                    String s = prefix + (year + i);
-                    notificationDateStrings.add(s);
-                }
+                String s = prefix + (year + i);
+                notificationDateStrings.add(s);
             }
         }
 

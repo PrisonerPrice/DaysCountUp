@@ -7,6 +7,7 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
 import com.prisonerprice.dayscountup.App;
 import com.prisonerprice.dayscountup.R;
+import com.prisonerprice.dayscountup.viewmodel.EditViewModel;
 import com.prisonerprice.dayscountup.viewmodel.MainViewModel;
 
 import androidx.annotation.NonNull;
@@ -44,7 +45,10 @@ public class MainActivity extends AppCompatActivity implements TaskAdapter.ItemC
 
         FloatingActionButton fab = findViewById(R.id.fab);
         final Intent intent = new Intent(this, EditActivity.class);
-        fab.setOnClickListener(view -> startActivity(intent));
+        fab.setOnClickListener(view -> {
+            startActivity(intent);
+            EditViewModel.clearBufferTask();
+        });
 
         mainViewModel = new MainViewModel(getApplication(), this);
         mainViewModel.getTasks().observe(this, tasks -> {
@@ -74,6 +78,7 @@ public class MainActivity extends AppCompatActivity implements TaskAdapter.ItemC
 
     @Override
     public void onItemClickListener(int itemId) {
+        EditViewModel.setBufferTask(itemId);
         Intent intent = new Intent(MainActivity.this, EditActivity.class);
         intent.putExtra(EditActivity.EXTRA_TASK_ID, itemId);
         startActivity(intent);

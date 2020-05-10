@@ -37,4 +37,9 @@
 
     <string name="allow_notification_title">Allow Notification</string>
 
+    <string name="notification_text_100_days">It has been 100 days since you set up the notification</string>
+    <string name="notification_text_anniversary">It is the anniversary!</string>
+    <string name="notification_text_custom_prefix">It has been </string>
+    <string name="notification_text_custom_tail"> days since you set up the notification</string>
+
 </resources>

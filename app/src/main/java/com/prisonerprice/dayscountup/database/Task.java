@@ -7,6 +7,7 @@ import androidx.room.PrimaryKey;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.Objects;
 
 @Entity(tableName = "tasks")
 public class Task {
@@ -19,26 +20,71 @@ public class Task {
     @ColumnInfo(name = "updated_at")
     private Date updatedAt;
 
-    @ColumnInfo(name = "remainder_dates")
-    private ArrayList<Date> remainderDates;
-
     @ColumnInfo(name = "icon_id")
     private int iconID;
 
+    @ColumnInfo(name = "allow_notification")
+    private int allowNotification;
+
+    private Long timestamp;
+
+    @ColumnInfo(name = "celebrate_100_days")
+    private int celebrate100Days;
+
+    @ColumnInfo(name = "celebrate_anniversary")
+    private int celebrateAnniversary;
+
+    @ColumnInfo(name = "custom_celebrate_day")
+    private int customCelebrateDay;
+
     @Ignore
-    public Task(String description, Date updatedAt, ArrayList<Date> remainderDates, int iconID) {
+    public Task(String description, Date updatedAt, int iconID, int allowNotification, Long timestamp, int celebrate100Days, int celebrateAnniversary, int customCelebrateDay) {
         this.description = description;
         this.updatedAt = updatedAt;
-        this.remainderDates = remainderDates;
         this.iconID = iconID;
+        this.allowNotification = allowNotification;
+        this.timestamp = timestamp;
+        this.celebrate100Days = celebrate100Days;
+        this.celebrateAnniversary = celebrateAnniversary;
+        this.customCelebrateDay = customCelebrateDay;
     }
 
-    public Task(int id, String description, Date updatedAt, ArrayList<Date> remainderDates, int iconID) {
+    public Task(int id, String description, Date updatedAt, int iconID, int allowNotification, Long timestamp, int celebrate100Days, int celebrateAnniversary, int customCelebrateDay) {
         this.id = id;
         this.description = description;
         this.updatedAt = updatedAt;
-        this.remainderDates = remainderDates;
         this.iconID = iconID;
+        this.allowNotification = allowNotification;
+        this.timestamp = timestamp;
+        this.celebrate100Days = celebrate100Days;
+        this.celebrateAnniversary = celebrateAnniversary;
+        this.customCelebrateDay = customCelebrateDay;
+    }
+
+    @Ignore
+    public Task(Task task) {
+        if (task != null) {
+            this.id = task.id;
+            this.description = task.description;
+            this.updatedAt = task.updatedAt;
+            this.iconID = task.iconID;
+            this.allowNotification = task.allowNotification;
+            this.timestamp = task.timestamp;
+            this.celebrate100Days = task.celebrate100Days;
+            this.celebrateAnniversary = task.celebrateAnniversary;
+            this.customCelebrateDay = task.customCelebrateDay;
+        }
+        else {
+            this.id = -1;
+            this.description = "";
+            this.updatedAt = null;
+            this.iconID = -1;
+            this.allowNotification = 0;
+            this.timestamp = System.currentTimeMillis();
+            this.celebrate100Days = 0;
+            this.celebrateAnniversary = 0;
+            this.customCelebrateDay = 0;
+        }
     }
 
     public int getId() {
@@ -65,19 +111,87 @@ public class Task {
         this.updatedAt = updatedAt;
     }
 
-    public ArrayList<Date> getRemainderDates() {
-        return remainderDates;
-    }
-
-    public void setRemainderDates(ArrayList<Date> remainderDates) {
-        this.remainderDates = remainderDates;
-    }
-
     public int getIconID() {
         return iconID;
     }
 
     public void setIconID(int iconID) {
         this.iconID = iconID;
+    }
+
+    public int getAllowNotification() {
+        return allowNotification;
+    }
+
+    public void setAllowNotification(int allowNotification) {
+        this.allowNotification = allowNotification;
+    }
+
+    public Long getTimestamp() {
+        return timestamp;
+    }
+
+    public void setTimestamp(Long timestamp) {
+        this.timestamp = timestamp;
+    }
+
+    public int getCelebrate100Days() {
+        return celebrate100Days;
+    }
+
+    public void setCelebrate100Days(int celebrate100Days) {
+        this.celebrate100Days = celebrate100Days;
+    }
+
+    public int getCelebrateAnniversary() {
+        return celebrateAnniversary;
+    }
+
+    public void setCelebrateAnniversary(int celebrateAnniversary) {
+        this.celebrateAnniversary = celebrateAnniversary;
+    }
+
+    public int getCustomCelebrateDay() {
+        return customCelebrateDay;
+    }
+
+    public void setCustomCelebrateDay(int customCelebrateDay) {
+        this.customCelebrateDay = customCelebrateDay;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Task task = (Task) o;
+        return id == task.id &&
+                iconID == task.iconID &&
+                allowNotification == task.allowNotification &&
+                celebrate100Days == task.celebrate100Days &&
+                celebrateAnniversary == task.celebrateAnniversary &&
+                customCelebrateDay == task.customCelebrateDay &&
+                Objects.equals(description, task.description) &&
+                Objects.equals(updatedAt, task.updatedAt) &&
+                Objects.equals(timestamp, task.timestamp);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, description, updatedAt, iconID, allowNotification, timestamp, celebrate100Days, celebrateAnniversary, customCelebrateDay);
+    }
+
+    @Override
+    public String toString() {
+        return "Task{" +
+                "id=" + id +
+                ", description='" + description + '\'' +
+                ", updatedAt=" + updatedAt +
+                ", iconID=" + iconID +
+                ", allowNotification=" + allowNotification +
+                ", timestamp=" + timestamp +
+                ", celebrate100Days=" + celebrate100Days +
+                ", celebrateAnniversary=" + celebrateAnniversary +
+                ", customCelebrateDay=" + customCelebrateDay +
+                '}';
     }
 }

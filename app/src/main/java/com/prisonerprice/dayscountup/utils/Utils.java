@@ -1,6 +1,6 @@
 package com.prisonerprice.dayscountup.utils;
 
-public class LeapYearCalculator {
+public class Utils {
 
     public static boolean isLeapYear(int year) {
         if (year % 4 != 0) return false;

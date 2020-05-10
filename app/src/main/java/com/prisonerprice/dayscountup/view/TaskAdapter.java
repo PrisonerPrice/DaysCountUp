@@ -1,5 +1,6 @@
 package com.prisonerprice.dayscountup.view;
 
+import android.app.PendingIntent;
 import android.content.Context;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
@@ -24,7 +25,7 @@ import java.util.Locale;
 
 public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.TaskViewHolder> {
 
-    private List<Task> mTaskEntries;
+    private static List<Task> mTaskEntries;
     private Context mContext;
     private DateFormat format = new SimpleDateFormat("MM-dd-yyyy", Locale.getDefault());
     private ItemClickListener mItemClickListener;
@@ -55,8 +56,12 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.TaskViewHolder
         holder.updatedAtView.setText(updatedAt);
     }
 
-    public List<Task> getTasks() {
+    public static List<Task> getTasks() {
         return mTaskEntries;
+    }
+
+    public static Task getTask(int position) {
+        return mTaskEntries.get(position);
     }
 
     public void setTasks(List<Task> tasks) {
@@ -86,8 +91,8 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.TaskViewHolder
 
         @Override
         public void onClick(View v) {
-            int elementId = mTaskEntries.get(getAdapterPosition()).getId();
-            mItemClickListener.onItemClickListener(elementId);
+            //int elementId = mTaskEntries.get(getAdapterPosition()).getId();
+            mItemClickListener.onItemClickListener(getAdapterPosition());
         }
     }
 
