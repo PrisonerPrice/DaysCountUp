@@ -67,7 +67,8 @@ public class MainActivity extends AppCompatActivity implements TaskAdapter.ItemC
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         int id = item.getItemId();
         if(id == R.id.sync) {
-
+            Intent intent = new Intent(this, LoginActivity.class);
+            startActivity(intent);
         }
         if(id == R.id.settings) {
             Intent intent = new Intent(this, SettingsActivity.class);
