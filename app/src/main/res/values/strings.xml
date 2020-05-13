@@ -42,4 +42,11 @@
     <string name="notification_text_custom_prefix">It has been </string>
     <string name="notification_text_custom_tail"> days since you set up the notification</string>
 
+    <!-- sign in -->
+    <string name="login_appbar_title">Login to sync</string>
+    <string name="sign_out_btn_text">Sign out</string>
+    <string name="sign_in_text">Sign in with Google to sync your data</string>
+    <string name="signed_in_text">You have all set, the synchronization will conducted in the background</string>
+
+
 </resources>
