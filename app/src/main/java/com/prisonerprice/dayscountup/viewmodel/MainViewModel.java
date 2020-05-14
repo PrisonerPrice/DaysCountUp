@@ -18,18 +18,18 @@ import java.util.List;
 public class MainViewModel extends AndroidViewModel {
 
     private static final String TAG = MainViewModel.class.getSimpleName();
-    private DataExchanger dataExchangeer;
+    private DataExchanger dataExchanger;
 
     public MainViewModel(@NonNull Application application, Context context) {
         super(application);
-        dataExchangeer = DataExchanger.getInstance(context);
+        dataExchanger = DataExchanger.getInstance(context);
     }
 
     public LiveData<List<Task>> getTasks() {
-        return dataExchangeer.getTaskList();
+        return dataExchanger.getTaskList();
     }
 
     public void deleteTask(RecyclerView.ViewHolder viewHolder, TaskAdapter mAdapter) {
-        dataExchangeer.deleteTask(viewHolder, mAdapter);
+        dataExchanger.deleteTask(viewHolder, mAdapter);
     }
 }

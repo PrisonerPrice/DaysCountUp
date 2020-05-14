@@ -4,7 +4,9 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -29,8 +31,6 @@ import com.google.firebase.auth.GoogleAuthProvider;
 import com.prisonerprice.dayscountup.R;
 import com.prisonerprice.dayscountup.middleware.DataExchanger;
 
-import java.util.List;
-
 public class LoginActivity extends AppCompatActivity {
 
     private static final int RC_SIGN_IN = 123;
@@ -41,8 +41,12 @@ public class LoginActivity extends AppCompatActivity {
     private TextView signInTextViewDescription;
     private SignInButton signInButton;
     private MaterialButton signOutButton;
+    private MaterialButton fetchDataButton;
 
-    private FirebaseUser currentUser;
+    private static FirebaseUser currentUser;
+
+    private SharedPreferences sharedPreferences;
+    private SharedPreferences.Editor editor;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -70,6 +74,9 @@ public class LoginActivity extends AppCompatActivity {
 
         signOutButton = findViewById(R.id.sign_out_btn);
         signOutButton.setOnClickListener(view -> {
+            editor = sharedPreferences.edit();
+            editor.remove("USER");
+            editor.commit();
             // Firebase sign out
             mAuth.signOut();
             // Google sign out
@@ -80,6 +87,12 @@ public class LoginActivity extends AppCompatActivity {
                             updateUI(null);
                         }
                     });
+
+        });
+
+        fetchDataButton = findViewById(R.id.fetch_data_btn);
+        fetchDataButton.setOnClickListener(view -> {
+            DataExchanger.getInstance(this).fetchDataFromCloud(this);
         });
     }
 
@@ -109,6 +122,12 @@ public class LoginActivity extends AppCompatActivity {
         super.onStart();
         // Check if user is signed in (non-null) and update UI accordingly.
         currentUser = mAuth.getCurrentUser();
+        sharedPreferences = getSharedPreferences("USER", Context.MODE_PRIVATE);
+        editor = sharedPreferences.edit();
+        if(currentUser != null) {
+            editor.putString("USER", currentUser.getUid());
+            editor.commit();
+        }
         updateUI(currentUser);
     }
 
@@ -116,10 +135,12 @@ public class LoginActivity extends AppCompatActivity {
         if (currentUser == null) {
             signInButton.setVisibility(View.VISIBLE);
             signOutButton.setVisibility(View.GONE);
+            fetchDataButton.setVisibility(View.GONE);
             signInTextViewDescription.setText(R.string.sign_in_text);
         } else {
             signInButton.setVisibility(View.GONE);
             signOutButton.setVisibility(View.VISIBLE);
+            fetchDataButton.setVisibility(View.VISIBLE);
             signInTextViewDescription.setText(R.string.signed_in_text);
         }
     }
@@ -140,5 +161,9 @@ public class LoginActivity extends AppCompatActivity {
                         updateUI(null);
                     }
                 });
+    }
+
+    public static FirebaseUser getCurrentUser() {
+        return currentUser;
     }
 }

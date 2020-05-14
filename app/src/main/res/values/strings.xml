@@ -6,6 +6,9 @@
     <string name="sync">sync</string>
     <string name="settings">settings</string>
 
+    <!-- Main -->
+    <string name="swipe_to_delete_text">DELETE</string>
+
     <!-- Settings -->
     <string name="sync_header">Sync</string>
     <string name="test_header">Developer</string>
@@ -46,6 +49,7 @@
     <!-- sign in -->
     <string name="login_appbar_title">Login to sync</string>
     <string name="sign_out_btn_text">Sign out</string>
+    <string name="fetch_data_btn">Fetch Data from the server</string>
     <string name="sign_in_text">Sign in with Google to sync your data</string>
     <string name="signed_in_text">You have all set, the synchronization will conducted in the background</string>
 

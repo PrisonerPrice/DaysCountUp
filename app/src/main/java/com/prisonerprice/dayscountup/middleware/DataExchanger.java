@@ -3,15 +3,14 @@ package com.prisonerprice.dayscountup.middleware;
 import android.app.Activity;
 import android.content.Context;
 import android.util.Log;
-import android.widget.TextView;
 
 import androidx.lifecycle.LiveData;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.google.firebase.auth.FirebaseUser;
 import com.prisonerprice.dayscountup.database.AppDatabase;
 import com.prisonerprice.dayscountup.database.Task;
 import com.prisonerprice.dayscountup.firestore.FireStoreDB;
+import com.prisonerprice.dayscountup.view.LoginActivity;
 import com.prisonerprice.dayscountup.view.TaskAdapter;
 
 import java.util.List;
@@ -24,7 +23,6 @@ public class DataExchanger {
     private final AppDatabase appDatabase;
     private final AppExecutors appExecutors = AppExecutors.getInstance();
     private static DataExchanger dataExchanger;
-    private static FireStoreDB fireStoreDB = FireStoreDB.getInstance();
 
     private final static int DEFAULT_TASK_ID = -1;
 
@@ -83,15 +81,7 @@ public class DataExchanger {
         });
     }
 
-    public void uploadDataToFirebase(FirebaseUser firebaseUser, List<Task> tasks) {
-        fireStoreDB.uploadTasks(firebaseUser, tasks);
-    }
-
-    public List<Task> downloadDataFromFirebase(FirebaseUser firebaseUser) {
-        return fireStoreDB.downloadTasks(firebaseUser);
-    }
-
-    public void downloadDataFromFirebase2(FirebaseUser firebaseUser, TextView tv) {
-        fireStoreDB.downloadTasks2(firebaseUser, tv);
+    public void fetchDataFromCloud(Context context) {
+        FireStoreDB.getInstance(context).fetchDataFromCloudAndSaveInLocal(appDatabase, appExecutors);
     }
 }
