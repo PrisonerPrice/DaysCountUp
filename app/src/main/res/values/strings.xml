@@ -21,6 +21,7 @@
     <string name="truncate_alert_accept">Accept</string>
 
     <!-- Edit -->
+    <string name="edit_appbar_title">Edit/ Update Event</string>
     <string name="task_title">Event Description</string>
     <string name="task_input_default">Please input your task description</string>
     <string name="date_title">Date</string>

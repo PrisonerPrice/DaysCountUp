@@ -3,13 +3,15 @@ package com.prisonerprice.dayscountup.middleware;
 import android.app.Activity;
 import android.content.Context;
 import android.util.Log;
+import android.widget.TextView;
 
 import androidx.lifecycle.LiveData;
 import androidx.recyclerview.widget.RecyclerView;
-import androidx.room.PrimaryKey;
 
+import com.google.firebase.auth.FirebaseUser;
 import com.prisonerprice.dayscountup.database.AppDatabase;
 import com.prisonerprice.dayscountup.database.Task;
+import com.prisonerprice.dayscountup.firestore.FireStoreDB;
 import com.prisonerprice.dayscountup.view.TaskAdapter;
 
 import java.util.List;
@@ -18,10 +20,13 @@ public class DataExchanger {
 
     private static final String LOG_TAG = DataExchanger.class.getSimpleName();
     private static final Object LOCK = new Object();
+
     private final AppDatabase appDatabase;
     private final AppExecutors appExecutors = AppExecutors.getInstance();
     private static DataExchanger dataExchanger;
-    private static int DEFAULT_TASK_ID = -1;
+    private static FireStoreDB fireStoreDB = FireStoreDB.getInstance();
+
+    private final static int DEFAULT_TASK_ID = -1;
 
     public static DataExchanger getInstance(Context context) {
         if (dataExchanger == null) {
@@ -53,7 +58,9 @@ public class DataExchanger {
     }
 
     public void insertTask(Task task) {
-        appDatabase.taskDao().insertTask(task);
+        appExecutors.getDiskIO().execute(() -> {
+            appDatabase.taskDao().insertTask(task);
+        });
     }
 
     public void insertOrUpdateTask(Activity activity, Task task, int mTaskId) {
@@ -74,5 +81,17 @@ public class DataExchanger {
         appExecutors.getDiskIO().execute(() -> {
             appDatabase.taskDao().truncate();
         });
+    }
+
+    public void uploadDataToFirebase(FirebaseUser firebaseUser, List<Task> tasks) {
+        fireStoreDB.uploadTasks(firebaseUser, tasks);
+    }
+
+    public List<Task> downloadDataFromFirebase(FirebaseUser firebaseUser) {
+        return fireStoreDB.downloadTasks(firebaseUser);
+    }
+
+    public void downloadDataFromFirebase2(FirebaseUser firebaseUser, TextView tv) {
+        fireStoreDB.downloadTasks2(firebaseUser, tv);
     }
 }

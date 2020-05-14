@@ -348,18 +348,34 @@ public class EditActivity extends AppCompatActivity implements IconDialog.Callba
             if (bufferTask != null && bufferTask.equals(newTask)) { }
                 // use all new things
             else {
-                final Task task = new Task(
-                        newTask.getId(),
-                        newTask.getDescription(),
-                        newTask.getUpdatedAt(),
-                        iconID,
-                        newTask.getAllowNotification(),
-                        newTask.getTimestamp(),
-                        newTask.getCelebrate100Days(),
-                        newTask.getCelebrateAnniversary(),
-                        newTask.getCustomCelebrateDay());
-                editViewModel.insertOrUpdateTask(this, task, newTask.getId());
+                final Task task;
+                if (bufferTask != null) {
+                    task = new Task(
+                            newTask.getId(),
+                            newTask.getDescription(),
+                            newTask.getUpdatedAt(),
+                            iconID,
+                            newTask.getAllowNotification(),
+                            newTask.getTimestamp(),
+                            newTask.getCelebrate100Days(),
+                            newTask.getCelebrateAnniversary(),
+                            newTask.getCustomCelebrateDay());
+                    editViewModel.insertOrUpdateTask(this, task, newTask.getId());
+                } else {
+                    task = new Task(
+                            newTask.getDescription(),
+                            newTask.getUpdatedAt(),
+                            iconID,
+                            newTask.getAllowNotification(),
+                            System.currentTimeMillis(),
+                            newTask.getCelebrate100Days(),
+                            newTask.getCelebrateAnniversary(),
+                            newTask.getCustomCelebrateDay());
+                    editViewModel.insertTask(task);
+                }
                 Log.d(TAG, task.toString());
+                Intent intent = new Intent(this, MainActivity.class);
+                startActivity(intent);
             }
         }
 

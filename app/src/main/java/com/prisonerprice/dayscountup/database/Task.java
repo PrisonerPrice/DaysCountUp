@@ -74,17 +74,6 @@ public class Task {
             this.celebrateAnniversary = task.celebrateAnniversary;
             this.customCelebrateDay = task.customCelebrateDay;
         }
-        else {
-            this.id = -1;
-            this.description = "";
-            this.updatedAt = null;
-            this.iconID = -1;
-            this.allowNotification = 0;
-            this.timestamp = System.currentTimeMillis();
-            this.celebrate100Days = 0;
-            this.celebrateAnniversary = 0;
-            this.customCelebrateDay = 0;
-        }
     }
 
     public int getId() {

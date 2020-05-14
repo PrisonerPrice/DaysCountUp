@@ -25,6 +25,10 @@ public class EditViewModel extends ViewModel {
         return dataExchanger.getTaskById(taskId);
     }
 
+    public void insertTask(Task task) {
+        dataExchanger.insertTask(task);
+    }
+
     public void insertOrUpdateTask(Activity activity, Task task, int taskId) {
         dataExchanger.insertOrUpdateTask(activity, task, taskId);
     }
