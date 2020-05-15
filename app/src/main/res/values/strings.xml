@@ -53,6 +53,11 @@
     <string name="fetch_data_btn">Fetch Data from the server</string>
     <string name="sign_in_text">Sign in with Google to sync your data</string>
     <string name="signed_in_text">You have all set, the synchronization will conducted in the background</string>
+    
+    <!-- widget -->
+    <string name="widget_btn_text">Go to the App!</string>
+    <string name="widget_text_default">There is nothing here. Add some events!</string>
+    <string name="widget_text_prefix">Your newest added event is: </string>
 
     <!-- Accessibility -->
     <!-- ContentDescriptions-->

@@ -81,7 +81,7 @@ public class FireStoreDB {
 
     public void fetchDataFromCloudAndSaveInLocal(AppDatabase appDatabase, AppExecutors appExecutors) {
         List<Task> tasks = new ArrayList<>();
-        String uid = LoginActivity.getCurrentUser().getUid();
+        uid = sharedPreferences.getString("USER", "NO_USER");
         Log.d(TAG, "currUser is: " + uid);
 
         DocumentReference docRef = db.collection("users").document(uid);

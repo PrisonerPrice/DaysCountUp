@@ -1,5 +1,7 @@
 package com.prisonerprice.dayscountup.view;
 
+import android.appwidget.AppWidgetManager;
+import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -15,6 +17,7 @@ import com.prisonerprice.dayscountup.R;
 import com.prisonerprice.dayscountup.firestore.FireStoreDB;
 import com.prisonerprice.dayscountup.viewmodel.EditViewModel;
 import com.prisonerprice.dayscountup.viewmodel.MainViewModel;
+import com.prisonerprice.dayscountup.widget.EventWidget;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -45,6 +48,8 @@ public class MainActivity extends AppCompatActivity implements TaskAdapter.ItemC
 
     private SharedPreferences sharedPreferences;
 
+    private Intent widgetIntent;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         //getWindow().getDecorView().setLayoutDirection(View.LAYOUT_DIRECTION_RTL);
@@ -70,9 +75,24 @@ public class MainActivity extends AppCompatActivity implements TaskAdapter.ItemC
             EditViewModel.clearBufferTask();
         });
 
+        // on init adpter, update widget data
+        widgetIntent = new Intent(this, EventWidget.class);
+        widgetIntent.setAction(AppWidgetManager.ACTION_APPWIDGET_UPDATE);
+        int[] idsInitial = AppWidgetManager.getInstance(getApplication())
+                .getAppWidgetIds(new ComponentName(getApplication(), EventWidget.class));
+        intent.putExtra(AppWidgetManager.EXTRA_APPWIDGET_IDS, idsInitial);
+        sendBroadcast(widgetIntent);
+
         mainViewModel = new MainViewModel(getApplication(), this);
         mainViewModel.getTasks().observe(this, tasks -> {
             taskAdapter.setTasks(tasks);
+
+            // on data set changed, update widget data
+            int[] idsAfterwards = AppWidgetManager.getInstance(getApplication())
+                    .getAppWidgetIds(new ComponentName(getApplication(), EventWidget.class));
+            widgetIntent.putExtra(AppWidgetManager.EXTRA_APPWIDGET_IDS, idsAfterwards);
+            sendBroadcast(widgetIntent);
+
             Log.d(TAG, "uid is: " + uid);
             if (!uid.equals(SHARED_PREFERENCE_DEFAULT_VALUE)) {
                 Log.d(TAG, "Update tasks to FireStore!");
@@ -106,7 +126,6 @@ public class MainActivity extends AppCompatActivity implements TaskAdapter.ItemC
             }
 
         }).attachToRecyclerView(recyclerView);
-
 
     }
 
