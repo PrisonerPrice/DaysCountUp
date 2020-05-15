@@ -12,4 +12,7 @@ public class Utils {
         }
         return true;
     }
+
+    public static final String SHARED_PREFERENCE_KEY = "USER";
+    public static final String SHARED_PREFERENCE_DEFAULT_VALUE = "NO_USER";
 }

@@ -16,6 +16,7 @@ import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -83,6 +84,7 @@ public class EditActivity extends AppCompatActivity implements IconDialog.Callba
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        //getWindow().getDecorView().setLayoutDirection(View.LAYOUT_DIRECTION_RTL);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit);
 
@@ -406,8 +408,6 @@ public class EditActivity extends AppCompatActivity implements IconDialog.Callba
             sb.append(", ");
         }
         sb.delete(sb.length() - 2, sb.length());
-        Snackbar.make(iconImage, "Icon selected: " + sb, Snackbar.LENGTH_LONG)
-                .setAction("Action", null).show();
     }
 
     @Override

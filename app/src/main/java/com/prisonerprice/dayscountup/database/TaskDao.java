@@ -13,7 +13,7 @@ import java.util.List;
 @Dao
 public interface TaskDao {
 
-    @Query("SELECT * FROM tasks ORDER BY updated_at")
+    @Query("SELECT * FROM tasks ORDER BY timestamp DESC")
     LiveData<List<Task>> getTaskList();
 
     @Insert

@@ -30,6 +30,9 @@ import com.google.firebase.auth.GoogleAuthProvider;
 
 import com.prisonerprice.dayscountup.R;
 import com.prisonerprice.dayscountup.middleware.DataExchanger;
+import com.prisonerprice.dayscountup.utils.Utils;
+
+import static com.prisonerprice.dayscountup.utils.Utils.SHARED_PREFERENCE_KEY;
 
 public class LoginActivity extends AppCompatActivity {
 
@@ -50,6 +53,7 @@ public class LoginActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        //getWindow().getDecorView().setLayoutDirection(View.LAYOUT_DIRECTION_RTL);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
@@ -75,7 +79,7 @@ public class LoginActivity extends AppCompatActivity {
         signOutButton = findViewById(R.id.sign_out_btn);
         signOutButton.setOnClickListener(view -> {
             editor = sharedPreferences.edit();
-            editor.remove("USER");
+            editor.remove(SHARED_PREFERENCE_KEY);
             editor.commit();
             // Firebase sign out
             mAuth.signOut();
@@ -122,7 +126,7 @@ public class LoginActivity extends AppCompatActivity {
         super.onStart();
         // Check if user is signed in (non-null) and update UI accordingly.
         currentUser = mAuth.getCurrentUser();
-        sharedPreferences = getSharedPreferences("USER", Context.MODE_PRIVATE);
+        sharedPreferences = getSharedPreferences(SHARED_PREFERENCE_KEY, Context.MODE_PRIVATE);
         editor = sharedPreferences.edit();
         if(currentUser != null) {
             editor.putString("USER", currentUser.getUid());

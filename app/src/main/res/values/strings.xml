@@ -10,6 +10,7 @@
     <string name="swipe_to_delete_text">DELETE</string>
 
     <!-- Settings -->
+    <string name="settings_appbar_title">Settings</string>
     <string name="sync_header">Sync</string>
     <string name="test_header">Developer</string>
 
@@ -52,6 +53,28 @@
     <string name="fetch_data_btn">Fetch Data from the server</string>
     <string name="sign_in_text">Sign in with Google to sync your data</string>
     <string name="signed_in_text">You have all set, the synchronization will conducted in the background</string>
+
+    <!-- Accessibility -->
+    <!-- ContentDescriptions-->
+    <string name="activity_edit_et_task_desc_content_description">You should enter your event description</string>
+    <string name="activity_edit_et_month_content_description">You should enter the month here</string>
+    <string name="activity_edit_et_day_content_description">You should enter the day here</string>
+    <string name="activity_edit_et_year_content_description">You should enter the year here</string>
+    <string name="activity_edit_et_custom_content_description">You can enter your custom notification day</string>
+    <string name="activity_edit_switch_100_content_description">Switch on to allow 100-day notification</string>
+    <string name="activity_edit_switch_anniversary_content_description">Switch on to allow anniversary notification</string>
+    <string name="activity_edit_switch_allow_notification_content_description">Switch on to allow notification</string>
+    <string name="activity_edit_image_chosen_icon_content_description">Here is the icon you chosen</string>
+    <string name="activity_edit_button_content_description">Press here to submit or update your event</string>
+
+    <string name="activity_login_sign_in_button_content_description">Press here to login to your Google account to activate sync function</string>
+    <string name="activity_sign_out_button_content_description">Press here to log out your Google account</string>
+    <string name="activity_fetch_data_button_content_description">Press here to retrieve data from the server</string>
+
+    <string name="task_layout_image_chosen_icon_content_description">Here is the icon you chosen</string>
+
+    <string name="app_bar_sync_button_content_description">Press here to sync with your Google account</string>
+    <string name="app_bar_settings_button_content_description">Press here to get into the settings page</string>
 
 
 </resources>

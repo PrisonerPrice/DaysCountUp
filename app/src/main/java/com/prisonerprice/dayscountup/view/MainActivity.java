@@ -28,8 +28,12 @@ import android.util.Log;
 import android.util.TypedValue;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 
 import it.xabaras.android.recyclerview.swipedecorator.RecyclerViewSwipeDecorator;
+
+import static com.prisonerprice.dayscountup.utils.Utils.SHARED_PREFERENCE_DEFAULT_VALUE;
+import static com.prisonerprice.dayscountup.utils.Utils.SHARED_PREFERENCE_KEY;
 
 public class MainActivity extends AppCompatActivity implements TaskAdapter.ItemClickListener{
 
@@ -40,15 +44,15 @@ public class MainActivity extends AppCompatActivity implements TaskAdapter.ItemC
     private MainViewModel mainViewModel;
 
     private SharedPreferences sharedPreferences;
-    private String uid;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        //getWindow().getDecorView().setLayoutDirection(View.LAYOUT_DIRECTION_RTL);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        sharedPreferences = getSharedPreferences("USER", Context.MODE_PRIVATE);
-        String uid = sharedPreferences.getString("USER", "NO_USER");
+        sharedPreferences = getSharedPreferences(SHARED_PREFERENCE_KEY, Context.MODE_PRIVATE);
+        String uid = sharedPreferences.getString(SHARED_PREFERENCE_KEY, SHARED_PREFERENCE_DEFAULT_VALUE);
 
         Toolbar topAppBar = findViewById(R.id.topAppBar);
         setSupportActionBar(topAppBar);
@@ -70,7 +74,7 @@ public class MainActivity extends AppCompatActivity implements TaskAdapter.ItemC
         mainViewModel.getTasks().observe(this, tasks -> {
             taskAdapter.setTasks(tasks);
             Log.d(TAG, "uid is: " + uid);
-            if (!uid.equals("NO_USER")) {
+            if (!uid.equals(SHARED_PREFERENCE_DEFAULT_VALUE)) {
                 Log.d(TAG, "Update tasks to FireStore!");
                 FireStoreDB.getInstance(this).uploadTasks(tasks);
             }

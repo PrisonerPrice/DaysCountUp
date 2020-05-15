@@ -23,8 +23,6 @@
 
         </com.google.android.material.appbar.MaterialToolbar>
 
-
-
     </com.google.android.material.appbar.AppBarLayout>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -40,7 +38,9 @@
             android:textColor="@color/colorSecondary"
             android:textSize="@dimen/lots_of_words"
             app:layout_constraintStart_toStartOf="@+id/guideline"
-            app:layout_constraintTop_toTopOf="@+id/guideline8" />
+            app:layout_constraintTop_toTopOf="@+id/guideline8"
+            android:focusable="true"
+            android:nextFocusDown="@id/et_task_desc"/>
 
         <TextView
             android:id="@+id/tv_anniversary"
@@ -50,7 +50,9 @@
             android:text="@string/celebrate_anniversary"
             android:textSize="@dimen/lots_of_words"
             app:layout_constraintStart_toStartOf="@+id/guideline"
-            app:layout_constraintTop_toBottomOf="@+id/tv_celebrate_100" />
+            app:layout_constraintTop_toBottomOf="@+id/tv_celebrate_100"
+            android:focusable="true"
+            android:nextFocusDown="@id/switch_anniversary"/>
 
         <TextView
             android:id="@+id/tv_custom"
@@ -60,7 +62,9 @@
             android:text="@string/celebrate_custom_days"
             android:textSize="@dimen/lots_of_words"
             app:layout_constraintStart_toStartOf="@+id/guideline"
-            app:layout_constraintTop_toBottomOf="@+id/tv_anniversary" />
+            app:layout_constraintTop_toBottomOf="@+id/tv_anniversary"
+            android:focusable="true"
+            android:nextFocusDown="@id/et_custom_days"/>
 
         <TextView
             android:id="@+id/tv_celebrate_100"
@@ -72,10 +76,13 @@
             android:textSize="@dimen/lots_of_words"
             app:layout_constraintBottom_toTopOf="@+id/tv_anniversary"
             app:layout_constraintStart_toStartOf="@+id/guideline"
-            app:layout_constraintTop_toBottomOf="@+id/et_month" />
+            app:layout_constraintTop_toBottomOf="@+id/et_month"
+            android:focusable="true"
+            android:nextFocusDown="@id/switch_100"/>
 
         <EditText
             android:id="@+id/et_task_desc"
+            android:contentDescription="@string/activity_edit_et_task_desc_content_description"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:ems="10"
@@ -83,10 +90,13 @@
             android:inputType="textMultiLine"
             android:maxLines="2"
             app:layout_constraintStart_toStartOf="@+id/guideline"
-            app:layout_constraintTop_toBottomOf="@+id/tv_task_title" />
+            app:layout_constraintTop_toBottomOf="@+id/tv_task_title"
+            android:focusable="true"
+            android:nextFocusDown="@id/date_title"/>
 
         <EditText
             android:id="@+id/et_month"
+            android:contentDescription="@string/activity_edit_et_month_content_description"
             android:layout_width="@dimen/width_month_or_day"
             android:layout_height="wrap_content"
             android:ems="10"
@@ -94,7 +104,9 @@
             android:inputType="date"
             android:maxLines="1"
             app:layout_constraintStart_toStartOf="@+id/guideline"
-            app:layout_constraintTop_toBottomOf="@+id/date_title" />
+            app:layout_constraintTop_toBottomOf="@+id/date_title"
+            android:focusable="true"
+            android:nextFocusDown="@id/et_day"/>
 
         <TextView
             android:id="@+id/date_title"
@@ -105,23 +117,31 @@
             android:textColor="@color/colorSecondary"
             android:textSize="@dimen/lots_of_words"
             app:layout_constraintStart_toStartOf="@+id/guideline"
-            app:layout_constraintTop_toBottomOf="@+id/et_task_desc" />
+            app:layout_constraintTop_toBottomOf="@+id/et_task_desc"
+            android:focusable="true"
+            android:nextFocusDown="@id/et_month"/>
 
         <com.google.android.material.switchmaterial.SwitchMaterial
             android:id="@+id/switch_100"
+            android:contentDescription="@string/activity_edit_switch_100_content_description"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:layout_constraintBottom_toBottomOf="@+id/tv_celebrate_100"
             app:layout_constraintEnd_toStartOf="@+id/guideline4"
-            app:layout_constraintTop_toTopOf="@+id/tv_celebrate_100" />
+            app:layout_constraintTop_toTopOf="@+id/tv_celebrate_100"
+            android:focusable="true"
+            android:nextFocusDown="@id/tv_anniversary"/>
 
         <com.google.android.material.switchmaterial.SwitchMaterial
             android:id="@+id/switch_anniversary"
+            android:contentDescription="@string/activity_edit_switch_anniversary_content_description"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:layout_constraintBottom_toBottomOf="@+id/tv_anniversary"
             app:layout_constraintEnd_toStartOf="@+id/guideline4"
-            app:layout_constraintTop_toTopOf="@+id/tv_anniversary" />
+            app:layout_constraintTop_toTopOf="@+id/tv_anniversary"
+            android:focusable="true"
+            android:nextFocusDown="@id/tv_custom"/>
 
         <androidx.constraintlayout.widget.Guideline
             android:id="@+id/guideline"
@@ -153,6 +173,7 @@
 
         <EditText
             android:id="@+id/et_custom_days"
+            android:contentDescription="@string/activity_edit_et_custom_content_description"
             android:layout_width="@dimen/width_year"
             android:layout_height="wrap_content"
             android:ems="10"
@@ -160,10 +181,13 @@
             android:maxLines="1"
             app:layout_constraintBottom_toBottomOf="@+id/tv_custom"
             app:layout_constraintEnd_toStartOf="@+id/guideline4"
-            app:layout_constraintTop_toTopOf="@+id/tv_custom" />
+            app:layout_constraintTop_toTopOf="@+id/tv_custom"
+            android:focusable="true"
+            android:nextFocusDown="@id/tv_pick_icon"/>
 
         <EditText
             android:id="@+id/et_day"
+            android:contentDescription="@string/activity_edit_et_day_content_description"
             android:layout_width="@dimen/width_month_or_day"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
@@ -173,10 +197,13 @@
             android:maxLines="1"
             app:layout_constraintBottom_toBottomOf="@+id/et_month"
             app:layout_constraintStart_toEndOf="@+id/et_month"
-            app:layout_constraintTop_toBottomOf="@+id/date_title" />
+            app:layout_constraintTop_toBottomOf="@+id/date_title"
+            android:focusable="true"
+            android:nextFocusDown="@id/et_year"/>
 
         <EditText
             android:id="@+id/et_year"
+            android:contentDescription="@string/activity_edit_et_year_content_description"
             android:layout_width="@dimen/width_year"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
@@ -186,17 +213,22 @@
             android:maxLines="1"
             app:layout_constraintBottom_toBottomOf="@+id/et_day"
             app:layout_constraintStart_toEndOf="@+id/et_day"
-            app:layout_constraintTop_toTopOf="@+id/et_day" />
+            app:layout_constraintTop_toTopOf="@+id/et_day"
+            android:focusable="true"
+            android:nextFocusDown="@string/celebrate_100_days_title"/>
 
         <ImageView
             android:id="@+id/iv_icon"
+            android:contentDescription="@string/activity_edit_image_chosen_icon_content_description"
             android:layout_width="60dp"
             android:layout_height="60dp"
             android:tint="@color/colorPrimary"
             app:layout_constraintBottom_toBottomOf="@+id/tv_pick_icon"
             app:layout_constraintEnd_toStartOf="@+id/guideline4"
             app:layout_constraintTop_toTopOf="@+id/tv_pick_icon"
-            app:srcCompat="@android:drawable/ic_menu_search" />
+            app:srcCompat="@android:drawable/ic_menu_search"
+            android:focusable="true"
+            android:nextFocusDown="@id/tv_allow_notification"/>
 
         <TextView
             android:id="@+id/tv_allow_notification"
@@ -206,15 +238,20 @@
             android:text="@string/allow_notification_title"
             android:textSize="@dimen/lots_of_words"
             app:layout_constraintStart_toStartOf="@+id/guideline"
-            app:layout_constraintTop_toBottomOf="@+id/tv_pick_icon" />
+            app:layout_constraintTop_toBottomOf="@+id/tv_pick_icon"
+            android:focusable="true"
+            android:nextFocusDown="@id/switch_allow_notification"/>
 
         <com.google.android.material.switchmaterial.SwitchMaterial
             android:id="@+id/switch_allow_notification"
+            android:contentDescription="@string/activity_edit_switch_allow_notification_content_description"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:layout_constraintBottom_toBottomOf="@+id/tv_allow_notification"
             app:layout_constraintEnd_toStartOf="@+id/guideline4"
-            app:layout_constraintTop_toTopOf="@+id/tv_allow_notification" />
+            app:layout_constraintTop_toTopOf="@+id/tv_allow_notification"
+            android:focusable="true"
+            android:nextFocusDown="@id/btn_edit_activity"/>
 
         <TextView
             android:id="@+id/tv_pick_icon"
@@ -224,10 +261,13 @@
             android:text="@string/icon_pick_text"
             android:textSize="@dimen/lots_of_words"
             app:layout_constraintStart_toStartOf="@+id/guideline"
-            app:layout_constraintTop_toBottomOf="@+id/tv_custom" />
+            app:layout_constraintTop_toBottomOf="@+id/tv_custom"
+            android:focusable="true"
+            android:nextFocusDown="@id/iv_icon"/>
 
         <Button
             android:id="@+id/btn_edit_activity"
+            android:contentDescription="@string/activity_edit_button_content_description"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_gravity="center"
@@ -236,7 +276,8 @@
             android:backgroundTint="@color/colorSecondary"
             android:text="@string/edit_activity_button_text"
             app:layout_constraintBottom_toTopOf="@+id/guideline3"
-            tools:layout_editor_absoluteX="80dp" />
+            tools:layout_editor_absoluteX="80dp"
+            android:focusable="true"/>
 
         <androidx.constraintlayout.widget.Guideline
             android:id="@+id/guideline8"

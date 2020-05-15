@@ -3,12 +3,14 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <item
         android:id="@+id/sync"
+        android:contentDescription="@string/app_bar_sync_button_content_description"
         android:icon="@drawable/ic_sync_alt"
         android:title="@string/sync"
         app:showAsAction="ifRoom" />
 
     <item
         android:id="@+id/settings"
+        android:contentDescription="@string/app_bar_settings_button_content_description"
         android:icon="@drawable/ic_settings_black"
         android:title="@string/settings"
         app:showAsAction="ifRoom" />

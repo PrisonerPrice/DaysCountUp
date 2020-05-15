@@ -33,21 +33,25 @@
 
         <com.google.android.gms.common.SignInButton
             android:id="@+id/sign_in_btn"
+            android:contentDescription="@string/activity_login_sign_in_button_content_description"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/guideline10" />
+            app:layout_constraintTop_toTopOf="@+id/guideline10"
+            android:focusable="true"/>
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/sign_out_btn"
+            android:contentDescription="@string/activity_sign_out_button_content_description"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/sign_out_btn_text"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/sign_in_btn" />
+            app:layout_constraintTop_toTopOf="@+id/sign_in_btn"
+            android:focusable="true"/>
 
         <androidx.constraintlayout.widget.Guideline
             android:id="@+id/guideline10"
@@ -66,17 +70,20 @@
             app:layout_constraintBottom_toTopOf="@+id/sign_in_btn"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            android:focusable="true"/>
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/fetch_data_btn"
+            android:contentDescription="@string/activity_fetch_data_button_content_description"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/fetch_data_btn"
             app:layout_constraintBottom_toTopOf="@+id/sign_out_btn"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/sign_in_btn" />
+            app:layout_constraintTop_toTopOf="@+id/sign_in_btn"
+            android:focusable="true"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
